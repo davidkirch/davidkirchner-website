@@ -1,0 +1,39 @@
+{
+	"name": "davidkirchner-website",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"predev": "bun run theme:build",
+		"dev": "vite dev --port 3000",
+		"prebuild": "bun run theme:build",
+		"build": "vite build",
+		"serve": "vite preview",
+		"check": "biome check && tsc --noEmit",
+		"theme:build": "bun run astryx -- theme build src/themes/theme.source.ts",
+		"astryx": "node node_modules/@astryxdesign/cli/bin/astryx.mjs"
+	},
+	"astryx": {
+		"theme": "@astryxdesign/theme-neutral"
+	},
+	"dependencies": {
+		"@astryxdesign/core": "^0.1.7",
+		"@astryxdesign/theme-neutral": "^0.1.7",
+		"@fontsource/courier-prime": "^5.3.0",
+		"@tanstack/react-router": "^1.170.18",
+		"@tanstack/react-start": "^1.168.32",
+		"nitro": "3.0.260903-beta",
+		"react": "^19.2.7",
+		"react-dom": "^19.2.7"
+	},
+	"devDependencies": {
+		"@astryxdesign/cli": "^0.1.7",
+		"@biomejs/biome": "2.2.4",
+		"@types/node": "^22.20.1",
+		"@types/react": "^19.2.17",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^5.2.0",
+		"typescript": "^5.9.3",
+		"vite": "^7.3.6",
+		"vite-tsconfig-paths": "^5.1.4"
+	}
+}

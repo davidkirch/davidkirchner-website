@@ -1,0 +1,9 @@
+@import "@astryxdesign/core/reset.css";
+@import "@astryxdesign/core/astryx.css";
+@import "@fontsource/courier-prime";
+
+/* Colours and fonts live in themes/theme.source.ts; this only binds the page to them. */
+body {
+	background: var(--color-background-body);
+	text-transform: lowercase;
+}
