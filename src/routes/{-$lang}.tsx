@@ -118,11 +118,13 @@ function EntryCard({ entry }: { entry: Entry }) {
 				<VStack gap={1}>
 					<HStack justify="between" align="center" gap={4}>
 						<Heading level={3}>{entry.title}</Heading>
-						{entry.href && (
-							<Link href={entry.href} isExternalLink>
-								github
-							</Link>
-						)}
+						<HStack gap={4}>
+							{entry.links?.map((l) => (
+								<Link key={l.href} href={l.href} isExternalLink>
+									{l.label}
+								</Link>
+							))}
+						</HStack>
 					</HStack>
 					{entry.meta && <Text color="secondary">{entry.meta}</Text>}
 				</VStack>

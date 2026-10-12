@@ -7,7 +7,7 @@ export type Lang = (typeof langs)[number];
 export type Entry = {
 	title: string;
 	meta?: string;
-	href?: string;
+	links?: { label: string; href: string }[];
 	bullets: string[];
 	stack?: string[];
 };
@@ -31,7 +31,17 @@ export type Content = {
 export const siteUrl = "https://davidkirchner.de";
 export const github = "https://github.com/davidkirch";
 
-const schedulerHref = "https://github.com/davidkirch/scheduler";
+const links = {
+	ngo: { label: "dialogue4u.org", href: "https://dialogue4u.org" },
+	scheduler: {
+		label: "github",
+		href: "https://github.com/davidkirch/scheduler",
+	},
+	schedulerLive: { label: "live", href: "https://scheduler.davidstech.de" },
+	microdo: { label: "microdo.de", href: "https://microdo.de" },
+	thesis: { label: "demo", href: "https://ba.davidstech.de/study" },
+};
+
 const schedulerStack = [
 	"TypeScript",
 	"TanStack Start",
@@ -42,6 +52,15 @@ const schedulerStack = [
 	"Vitest",
 	"Biome",
 	"Docker",
+];
+const microdoStack = [
+	"TypeScript",
+	"TanStack Start",
+	"TanStack Query",
+	"React 19",
+	"Convex",
+	"Convex Auth",
+	"Tailwind CSS",
 ];
 const thesisStack = [
 	"React",
@@ -56,8 +75,8 @@ const thesisStack = [
 const skillItems = {
 	languages: "TypeScript/JavaScript, Python, SQL, Bash, Java",
 	web: "React, Next.js, TanStack Start/Query, Django, REST, Zod, Tailwind CSS",
-	data: "PostgreSQL, Drizzle, Prisma, Supabase",
-	infra: "Linux, Docker, GitHub Actions, Proxmox, Hetzner, UniFi, Backups",
+	data: "PostgreSQL, Drizzle, Prisma, Supabase, Convex",
+	infra: "Linux, Docker, GitHub Actions, Proxmox, Hetzner, UniFi, Restic",
 	tools: "Git, Vitest, Biome",
 };
 
@@ -65,9 +84,9 @@ export const content: Record<Lang, Content> = {
 	de: {
 		title: "David Kirchner",
 		description:
-			"Entwickler mit Schwerpunkt auf selbst gehosteten Web-Anwendungen.",
+			"Fullstack-Entwickler mit Schwerpunkt auf TypeScript/React und selbst gehosteter Infrastruktur.",
 		summary:
-			"Entwickler mit drei Jahren Praxis in Infrastruktur und Automatisierung. Schwerpunkt: selbst gehostete Web-Anwendungen mit TypeScript, React und PostgreSQL.",
+			"Fullstack-Entwickler mit B.Sc. Informatik und über drei Jahren Praxis in Entwicklung und Administration. Schwerpunkt: TypeScript/React-Webanwendungen und selbst gehostete Infrastruktur (Linux, Docker).",
 		headings: {
 			experience: "Erfahrung",
 			projects: "Projekte",
@@ -76,14 +95,15 @@ export const content: Record<Lang, Content> = {
 		},
 		experience: [
 			{
-				title: "IT-Administration & Entwicklung",
-				meta: "NGO",
+				title: "IT-Systemadministrator / Entwickler",
+				meta: "Dialogue for Understanding e.V. · Berlin · seit 04/2023 · Teilzeit",
+				links: [links.ngo],
 				bullets: [
 					"Migration von Microsoft 365/SharePoint auf selbst gehostete Open-Source-Infrastruktur (Nextcloud, Rocket.Chat, Wiki.js, Planka) für Datensouveränität",
 					"Prozessautomatisierung mit selbst betriebenem n8n",
 					"Mitentwicklung einer Anwendung zur Rechnungs- und Ausgabenverwaltung (Next.js, Supabase)",
 					"Infrastruktur auf Hetzner-VPS, Backup-Konzept, private Netzwerke mit UniFi",
-					"1st- bis 3rd-Level-Support, Administration von M365/SharePoint und Webseiten",
+					"1st- bis 3rd-Level-Support, Administration von M365/SharePoint und Webseite",
 				],
 			},
 		],
@@ -91,7 +111,7 @@ export const content: Record<Lang, Content> = {
 			{
 				title: "Scheduler",
 				meta: "Selbst hostbare Terminfindung",
-				href: schedulerHref,
+				links: [links.schedulerLive, links.scheduler],
 				bullets: [
 					"Teilnehmende markieren Verfügbarkeit per Drag, Ersteller sehen eine Live-Heatmap der Überschneidungen",
 					"Live-Updates über PostgreSQL LISTEN/NOTIFY und Server-Sent Events, ohne Redis oder WebSocket-Server",
@@ -100,21 +120,38 @@ export const content: Record<Lang, Content> = {
 				],
 				stack: schedulerStack,
 			},
-		],
-		education: [
 			{
-				title: "Informatik in Kultur und Gesundheit",
-				meta: "HTW Berlin",
+				title: "Bachelorarbeit: Dashboard",
+				meta: "„Benutzerzentrierte Entwicklung eines Dashboards zur Anwendungskonsolidierung in dezentralen IT-Infrastrukturen“",
+				links: [links.thesis],
 				bullets: [
-					"Bachelorarbeit: „Benutzerzentrierte Entwicklung eines Dashboards zur Anwendungskonsolidierung in dezentralen IT-Infrastrukturen“",
-					"Dashboard bündelt verteilte Anwendungen (Todos, Kalender, Lesezeichen); Anforderungen aus einer Nutzerbefragung, mit Evaluation",
-					"Lesende CalDAV-Synchronisation mit Nextcloud",
+					"Web-Dashboard, das die verteilten Anwendungen einer NGO bündelt (Todos, Kalender, Lesezeichen)",
+					"Anforderungen aus einer Nutzerbefragung, Ergebnis mit Nutzenden evaluiert",
+					"Kalendersynchronisation mit Nextcloud über CalDAV",
 				],
 				stack: thesisStack,
 			},
 			{
+				title: "MicroDo",
+				meta: "Todo-App mit geteilten Listen",
+				links: [links.microdo],
+				bullets: [
+					"Installierbare Progressive Web App für Desktop und Mobilgeräte: verschachtelte Unteraufgaben, Prioritäten, Fälligkeiten mit Uhrzeit, Push-Erinnerungen",
+					"Listen per E-Mail teilen (bearbeiten oder nur lesen), Änderungen erscheinen in Echtzeit bei allen Beteiligten",
+					"Anmeldung über GitHub oder E-Mail-Magic-Link",
+				],
+				stack: microdoStack,
+			},
+		],
+		education: [
+			{
+				title: "Informatik in Kultur und Gesundheit (B.Sc.)",
+				meta: "HTW Berlin · 2023–2026 · Note 1,6",
+				bullets: [],
+			},
+			{
 				title: "Produktentwicklung und technisches Design (B.Eng.)",
-				meta: "FH Frankfurt · 2019–2022 · nicht abgeschlossen",
+				meta: "Frankfurt University of Applied Sciences · 2019–2022 · ohne Abschluss",
 				bullets: [],
 			},
 		],
@@ -126,15 +163,16 @@ export const content: Record<Lang, Content> = {
 			{ label: "Tools", items: skillItems.tools },
 			{
 				label: "Außerdem",
-				items: "Microsoft 365/SharePoint, Java/Spring Boot (Grundkenntnisse)",
+				items: "Microsoft-365-/SharePoint-/Exchange-Administration",
 			},
 		],
 	},
 	en: {
 		title: "David Kirchner",
-		description: "Developer focused on self-hosted web applications.",
+		description:
+			"Full-stack developer focused on TypeScript/React and self-hosted infrastructure.",
 		summary:
-			"Developer with three years of hands-on infrastructure and automation work, focused on self-hosted web applications built with TypeScript, React and PostgreSQL.",
+			"Full-stack developer with a B.Sc. in computer science and more than three years of hands-on development and administration work, focused on TypeScript/React web apps and self-hosted infrastructure (Linux, Docker).",
 		headings: {
 			experience: "Experience",
 			projects: "Projects",
@@ -143,14 +181,15 @@ export const content: Record<Lang, Content> = {
 		},
 		experience: [
 			{
-				title: "IT administration & development",
-				meta: "NGO",
+				title: "IT administrator / developer",
+				meta: "Dialogue for Understanding e.V. · Berlin · since 04/2023 · part-time",
+				links: [links.ngo],
 				bullets: [
 					"Migrated from Microsoft 365/SharePoint to self-hosted open-source infrastructure (Nextcloud, Rocket.Chat, Wiki.js, Planka) for data sovereignty",
 					"Automated internal processes with self-hosted n8n",
 					"Co-developed an invoice and expense management app (Next.js, Supabase)",
 					"Ran infrastructure on Hetzner VPS, designed the backup strategy, built private networks with UniFi",
-					"1st to 3rd level support; administered M365/SharePoint and the websites",
+					"1st to 3rd level support; administered M365/SharePoint and the website",
 				],
 			},
 		],
@@ -158,7 +197,7 @@ export const content: Record<Lang, Content> = {
 			{
 				title: "Scheduler",
 				meta: "Self-hosted scheduling",
-				href: schedulerHref,
+				links: [links.schedulerLive, links.scheduler],
 				bullets: [
 					"Participants drag to mark availability; the creator sees a live heatmap of overlaps",
 					"Live updates through PostgreSQL LISTEN/NOTIFY and server-sent events, with no Redis or WebSocket server",
@@ -167,21 +206,38 @@ export const content: Record<Lang, Content> = {
 				],
 				stack: schedulerStack,
 			},
-		],
-		education: [
 			{
-				title: "Computer Science in Culture and Health",
-				meta: "HTW Berlin",
+				title: "Bachelor's thesis: dashboard",
+				meta: "User-centred development of a dashboard for application consolidation in decentralised IT infrastructures",
+				links: [links.thesis],
 				bullets: [
-					"Thesis: user-centred development of a dashboard that consolidates applications in decentralised IT infrastructure",
-					"Dashboard bringing distributed apps (todos, calendar, bookmarks) together; requirements from a user survey, followed by an evaluation",
-					"Read-only CalDAV sync with Nextcloud",
+					"Web dashboard that brings an NGO's scattered apps together (todos, calendar, bookmarks)",
+					"Requirements gathered in a user survey; the result was evaluated with users",
+					"Calendar sync with Nextcloud over CalDAV",
 				],
 				stack: thesisStack,
 			},
 			{
+				title: "MicroDo",
+				meta: "Todo app with shared lists",
+				links: [links.microdo],
+				bullets: [
+					"Installable progressive web app for desktop and mobile: nested subtasks, priorities, due dates with times, push reminders",
+					"Share lists by email with edit or read-only access; changes show up live for everyone",
+					"Sign-in with GitHub or an email magic link",
+				],
+				stack: microdoStack,
+			},
+		],
+		education: [
+			{
+				title: "Computer Science in Culture and Health (B.Sc.)",
+				meta: "HTW Berlin · 2023–2026 · grade 1.6",
+				bullets: [],
+			},
+			{
 				title: "Product Development and Technical Design (B.Eng.)",
-				meta: "FH Frankfurt · 2019–2022 · not completed",
+				meta: "Frankfurt University of Applied Sciences · 2019–2022 · not completed",
 				bullets: [],
 			},
 		],
@@ -193,7 +249,7 @@ export const content: Record<Lang, Content> = {
 			{ label: "Tools", items: skillItems.tools },
 			{
 				label: "Also",
-				items: "Microsoft 365/SharePoint administration",
+				items: "Microsoft 365/SharePoint/Exchange administration",
 			},
 		],
 	},
