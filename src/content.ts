@@ -76,7 +76,7 @@ const skillItems = {
 	languages: "TypeScript/JavaScript, Python, SQL, Bash, Java",
 	web: "React, Next.js, TanStack Start/Query, Django, REST, Zod, Tailwind CSS",
 	data: "PostgreSQL, Drizzle, Prisma, Supabase, Convex",
-	infra: "Linux, Docker, GitHub Actions, Proxmox, Hetzner, UniFi, Restic",
+	infra: "Linux, Docker, GitHub Actions, Proxmox, Hetzner, UniFi",
 	tools: "Git, Vitest, Biome",
 };
 
@@ -146,7 +146,7 @@ export const content: Record<Lang, Content> = {
 		education: [
 			{
 				title: "Informatik in Kultur und Gesundheit (B.Sc.)",
-				meta: "HTW Berlin · 2023–2026 · Note 1,6",
+				meta: "HTW Berlin · 2023–2026",
 				bullets: [],
 			},
 			{
@@ -232,7 +232,7 @@ export const content: Record<Lang, Content> = {
 		education: [
 			{
 				title: "Computer Science in Culture and Health (B.Sc.)",
-				meta: "HTW Berlin · 2023–2026 · grade 1.6",
+				meta: "HTW Berlin · 2023–2026",
 				bullets: [],
 			},
 			{
